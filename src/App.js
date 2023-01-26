@@ -1,9 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from "./components/Header/Header";
+import Body from "./components/Body/BodyContainer";
 
 function App() {
   return (
-    <div className="App">
+    // <div className="App">
+    <div className="App-wrapper">
+      <Header/>
+
+        <div className='app-wrapper-content'>
+      <Body/>
+    </div>
+        t ,jj  q
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -15,9 +24,9 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
-        </a>
-      </header>
+           Learn React
+         </a>
+       </header>
     </div>
   );
 }
