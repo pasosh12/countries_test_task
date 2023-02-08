@@ -2,10 +2,10 @@ import React from "react"
 import c from "./Header.module.css"
 
 const Header = () => {
-    console.log('hi')
     return (
-        <div className={c.header}>
-            <p>Helo</p>
+        // <div className={c.header}>
+        <div>
+            <p>Hello world from navbar</p>
         </div>
     );
 };
