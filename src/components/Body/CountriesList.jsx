@@ -4,13 +4,9 @@ import Pagination from "../../common/Paginator";
 
 let CountriesList = (props) => {
     let leftPortionLimitCountries = (props.currentPage - 1) * props.countriesOnPage;
-    let rightPortionLimitCountries = (props.currentPage * props.countriesOnPage) - 1;
-
-    let countries = [];
-    for (let i = leftPortionLimitCountries; i <= rightPortionLimitCountries; i++) {
-        countries.push(props.countriesList[i]);
-    }
-    console.log(props)
+    let rightPortionLimitCountries = (props.currentPage * props.countriesOnPage - 1)
+    let countries = props.countriesList.slice(leftPortionLimitCountries, rightPortionLimitCountries)
+    console.log(props.countriesList)
     return (
         <div>
 
@@ -28,12 +24,12 @@ let CountriesList = (props) => {
                             <p key={c.id}>
                                 {c.name}
                             </p>
-                            <p key={c.id}>
-                                {c.region}
-                            </p>
-                            <p key={c.id}>
-                                {c.area}
-                            </p>
+                            {/*<p key={c.id}>*/}
+                            {/*    {c.region}*/}
+                            {/*</p>*/}
+                            {/*<p key={c.id}>*/}
+                            {/*    {c.area}*/}
+                            {/*</p>*/}
                         </div>
                     )
                 })

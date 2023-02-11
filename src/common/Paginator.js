@@ -4,9 +4,7 @@ import styled from "styled-components"
 
 
 const Pagination = (props) => {
-    console.log(props)
-
-// ({currentPage,pageChanged, countriesTotalCount,countriesOnPage}) => {
+    // ({currentPage,pageChanged, countriesTotalCount,countriesOnPage}) => {
     let pages = [];
     let portionSize = props.countriesOnPage;
     let pagesCount = Math.ceil(props.countriesTotalCount / props.countriesOnPage);
@@ -18,7 +16,6 @@ const Pagination = (props) => {
 
     let leftPortionLimit = (portionNumber - 1) * portionSize + 1;
     let rightPortionLimit = portionNumber * portionSize;
-console.log(props)
     return (
 
         <div>

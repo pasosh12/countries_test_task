@@ -4,7 +4,7 @@ export const getCountriesList = (state) => {
   return state.countriesPage.countriesList;
 };
 // export const getCountriesList = createSelector(getCountry, (countries) => {
-//   console.log(countries)
+//
 //   return countries;
 // });
 export const getCurrentPage = (state) => {

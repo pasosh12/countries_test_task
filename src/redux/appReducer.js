@@ -16,7 +16,6 @@ const appReducer = (state = initialState, action) => {
                 dataIsFetched: true
             }
         }
-
         default:
             return state;
     }

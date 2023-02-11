@@ -22,7 +22,7 @@ class Body extends React.Component {
     pageChanged = (pageNumber) => {
 
         this.props.setCurrentPage(pageNumber)
-        this.props.getNecessaryCountriesThunk()
+        // this.props.getNecessaryCountriesThunk()
     }
 
     render() {
@@ -62,4 +62,4 @@ const mapDispatchToProps = (dispatch) => {
 const SuperBody = connect(mapStateToProps, {
     // getCountriesThunk,
     setCurrentPage, getNecessaryCountriesThunk})(Body)
-export default  SuperBody
+export default SuperBody

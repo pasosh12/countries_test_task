@@ -4,14 +4,17 @@ const SET_COUNTRIES_LIST = 'SET_COUNTRIES_LIST'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_COUNTRIES_TOTAL_COUNT = 'SET_COUNTRIES_TOTAL_COUNT'
 const SET_FETCH_STATUS = 'SET_FETCH_STATUS'
-
+const SET_PAGES_COUNT = 'SET_PAGES_COUNT'
+const SET_FILTERED_COUNTRIES = 'SET_FILTERED_COUNTRIES'
 
 let initialState = {
     countriesList: [],
     countriesOnPage: 50,
     countriesTotalCount: 1,
     currentPage: 1,
-    isFetching: false
+    pagesCount : 1,
+    isFetching: false,
+    filteredCountries:[]
 }
 const countriesReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -20,10 +23,13 @@ const countriesReducer = (state = initialState, action) => {
                 ...state,
                 countriesList: action.countries
             }
-
         case SET_CURRENT_PAGE:
             return {
                 ...state, currentPage: action.currentPage
+            }
+        case SET_PAGES_COUNT:
+            return {
+                ...state, pagesCount: action.pagesCount
             }
         case SET_COUNTRIES_TOTAL_COUNT:
             return {
@@ -33,6 +39,11 @@ const countriesReducer = (state = initialState, action) => {
             return {
                 ...state, isFetching: action.fetchStatus
             }
+        case SET_FILTERED_COUNTRIES:
+            return {
+                ...state, filteredCountries: action.filteredCountries
+            }
+
 
         default :
             return state
@@ -42,6 +53,20 @@ const countriesReducer = (state = initialState, action) => {
 
 export const setCountries = (countries) => {
     return ({type: SET_COUNTRIES_LIST, countries})
+}
+const setPagesCount = (pagesCount) => {
+    return ({type: SET_PAGES_COUNT, pagesCount})
+}
+const setFilteredCountries = (filteredCountries) =>{
+    return ({type: SET_FILTERED_COUNTRIES, filteredCountries})
+}
+
+export const setFilteredCountries = (filteredCountries,countriesTotalCount,pagesCount) => {
+    return (dispatch) =>{
+        // dispatch(setPagesCount(pagesCount))
+        // dispatch(setCountries(filteredCountries))
+        dispatch(setFilteredCountries(filteredCountries))
+        dispatch(setCountriesTotalCount(countriesTotalCount))    }
 }
 
 export const setCurrentPage = (pageNumber) => ({type: SET_CURRENT_PAGE, currentPage: pageNumber})
