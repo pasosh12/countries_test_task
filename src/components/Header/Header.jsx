@@ -8,14 +8,6 @@ import {setFilterByLocation, setFilterBySize} from "../../redux/filterReducer";
 
 const Header = (props) => {
     const countries = props.countriesList
-    const [filter, setFilter] = useState(null)
-    const [regionIsPushed, buttonRegionChange] = useState(false)
-    const [oceaniaIsPushed, buttonLocationChange] = useState(false)
-
-    const handleButton = (flag) => {
-
-
-    }
     const handleSmallCountriesClick = () => {
         const filteredCountries = (countries.filter(country => country.area !== null && country.area < 65300));
         props.setFilteredCountries(filteredCountries, filteredCountries.length)

@@ -1,13 +1,10 @@
-import React, {useEffect} from 'react';
-import logo from "./logo.svg";
+import React from 'react';
 import "./App.css";
 import Header from "./components/Header/Header";
 import Body from "./components/Body/BodyContainer";
 import {connect} from "react-redux";
-import {Navbar} from "react-bootstrap";
 import {initializeApp} from "./redux/appReducer";
 
-// import { Navbar, NavItem, Nav, Grid, Row, Col } from "react-bootstrap";
 
 class App extends React.Component {
     componentDidMount() {
