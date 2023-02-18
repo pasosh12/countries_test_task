@@ -1,10 +1,13 @@
-// import classes from "../Users/Users.module.css";
 import React, {useState} from "react";
-import styled from "styled-components"
 
-
+const myInlineStyle={
+    color:'rgb(143, 255, 143)',
+    fontWeight:'bold',
+    fontSize:'20px',
+};
 const Pagination = (props) => {
     // ({currentPage,pageChanged, countriesTotalCount,countriesOnPage}) => {
+    // cuseState(0)
     let pages = [];
     let portionSize = props.countriesOnPage;
     let pagesCount = Math.ceil(props.countriesTotalCount / props.countriesOnPage);
@@ -21,11 +24,14 @@ const Pagination = (props) => {
         <div>
             {(portionNumber > 1) && <a onClick={() => setPortionNumber((portionNumber - 1))}>...</a>}
             {
-                pages.filter(p => (p >= leftPortionLimit && p <= rightPortionLimit)).map(p => {
+                pages.filter((p) => (p >= leftPortionLimit && p <= rightPortionLimit)).map(p => {
                     return (
                         <a
-                            key={p.id}
-                            style={props.currentPage === p ? {color: 'red'} : {}}
+                            key={p.toString()}
+                            style={props.currentPage === p ?
+                                myInlineStyle
+                                // {color: 'red'}
+                                : {}}
                             onClick={(e) => {
                                 props.pageChanged(p)
                             }}> {p} </a>

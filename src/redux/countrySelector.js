@@ -1,12 +1,9 @@
-import { createSelector } from "reselect";
-
 export const getCountriesList = (state) => {
   return state.countriesPage.countriesList;
 };
-// export const getCountriesList = createSelector(getCountry, (countries) => {
-//
-//   return countries;
-// });
+export const getFilteredCountriesList = (state) => {
+  return state.countriesPage.filteredCountries;
+};
 export const getCurrentPage = (state) => {
   return state.countriesPage.currentPage;
 };
@@ -15,7 +12,4 @@ export const getCountriesOnPage=(state)=>{
 }
 export const getCountriesTotalCount=(state)=>{
   return state.countriesPage.countriesTotalCount
-}
-export const getIsFetchingStatus=(state)=> {
-  return state.countriesPage.isFetching
 }

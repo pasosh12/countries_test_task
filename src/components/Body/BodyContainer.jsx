@@ -1,17 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux';
-// import ElementList from './ElementList'
-import {
-    // getCountriesThunk,
-    getNecessaryCountriesThunk, setCurrentPage} from "../../redux/countriesReducer"
+import { getNecessaryCountriesThunk, setCurrentPage} from "../../redux/countriesReducer"
 import {
     getCountriesList,
     getCountriesOnPage,
     getCountriesTotalCount,
-    getCurrentPage, getIsFetchingStatus
+    getCurrentPage, getFilteredCountriesList,
 } from "../../redux/countrySelector";
 import CountriesList from "./CountriesList";
-import Paginator from "../../common/Paginator";
 
 
 class Body extends React.Component {
@@ -20,22 +16,21 @@ class Body extends React.Component {
     }
 
     pageChanged = (pageNumber) => {
-
         this.props.setCurrentPage(pageNumber)
-        // this.props.getNecessaryCountriesThunk()
     }
 
     render() {
         return (
             <>
-                {this.props.isFetching ? '' : null}
-                    <CountriesList
-                        countriesList={this.props.countriesList}
-                        countriesOnPage={this.props.countriesOnPage}
-                        countriesTotalCount={this.props.countriesTotalCount}
-                        currentPage={this.props.currentPage}
-                        pageChanged={this.pageChanged}
-                    />
+                <CountriesList
+                    countriesList={this.props.countriesList}
+                    countriesOnPage={this.props.countriesOnPage}
+                    countriesTotalCount={this.props.countriesTotalCount}
+                    currentPage={this.props.currentPage}
+                    pageChanged={this.pageChanged}
+                    filteredCountries={this.props.filteredCountries}
+                    {...this.props}
+                />
 
 
             </>
@@ -49,17 +44,16 @@ const mapStateToProps = (state) => {
         countriesOnPage: getCountriesOnPage(state),
         countriesTotalCount: getCountriesTotalCount(state),
         currentPage: getCurrentPage(state),
-        isFetched: state.app.dataIsFetched
-
+        isFetched: state.app.dataIsFetched,
+        filteredCountries: getFilteredCountriesList(state),
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return (
-        // getCountries:()
         null
     )
 }
 const SuperBody = connect(mapStateToProps, {
-    // getCountriesThunk,
-    setCurrentPage, getNecessaryCountriesThunk})(Body)
+    setCurrentPage, getNecessaryCountriesThunk
+})(Body)
 export default SuperBody

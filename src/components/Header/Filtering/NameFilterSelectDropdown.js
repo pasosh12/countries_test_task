@@ -3,34 +3,37 @@ import React, {useState} from "react";
 
 export const NameFilterSelectDropdown = (props) => {
     const [currentSortingStyle, setCurrentSortingStyle] = useState('default')
-
     const changeSortStyle = (style) => {
         setCurrentSortingStyle(style)
         sortByName(style)
     }
+    const saveFilteredCountries = (filteredCountries) => {
+        props.setFilteredCountries(filteredCountries, filteredCountries.length)
 
+    }
     const sortByName = (currentSortingStyle) => {
+        let countriesToSort = props.filteredCountries.length !== 0 ? props.filteredCountries : props.countriesList
+        let sortedCountries = [];
         switch (currentSortingStyle) {
+
             case 'descending': {
-                let filteredDescending = [...props.countriesList].sort((a, b) =>
+                sortedCountries = countriesToSort.sort((a, b) =>
                     a.name > b.name ? -1 : 1,)
-                props.setFilteredCountries(filteredDescending,filteredDescending.length)
                 break
             }
             case 'ascending': {
-                let filteredAsscending = [...props.countriesList].sort((a, b) =>
+                sortedCountries = countriesToSort.sort((a, b) =>
                     a.name > b.name ? 1 : -1,)
-                props.setFilteredCountries(filteredAsscending,filteredAsscending.length)
                 break
             }
             default:
-                return props.countriesList
+                break
         }
+        saveFilteredCountries(sortedCountries)
     }
     return (
         <select onChange={(event) => changeSortStyle(event.target.value)}
-            value={currentSortingStyle}
-        >
+                value={currentSortingStyle}>
             <option value="default" disabled>
                 Filter by Name
             </option>

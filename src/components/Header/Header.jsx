@@ -1,48 +1,51 @@
 import React, {useState} from "react"
-import c from "./Header.module.css"
-import {getCountriesList} from "../../redux/countrySelector";
-import {setCountries, setFilteredCountries} from "../../redux/countriesReducer";
-import countriesList from "../Body/CountriesList";
+import style from "./Header.module.css"
+import {getCountriesList, getFilteredCountriesList} from "../../redux/countrySelector";
+import {setFilteredCountries} from "../../redux/countriesReducer";
 import {connect} from "react-redux";
-import {NameFilterSelectDropdown} from "./NameFilterSelectDropdown";
+import {NameFilterSelectDropdown} from "./Filtering/NameFilterSelectDropdown";
+import {setFilterByLocation, setFilterBySize} from "../../redux/filterReducer";
 
 const Header = (props) => {
-    // function filterAscending
-    // function filter descending
-    // const sortByNameAscending = () => {
-    //     // case func
-    //     console.log('ascending')
-    // }
-    // const sortByNameDescending = () => {
-    //
-    //     console.log('descending')
-    // }
+    const countries = props.countriesList
+    const [filter, setFilter] = useState(null)
+    const [regionIsPushed, buttonRegionChange] = useState(false)
+    const [oceaniaIsPushed, buttonLocationChange] = useState(false)
 
-    const sortByAreaSize = () => {
-
-        const areaOfLithuania = props.countriesList.find(country => country.name === 'Lithuania').area
-        const countriesSmallerThanAreaOfLithuania = props.countriesList.filter((cl) => cl.area < areaOfLithuania)
-        const filteredCountriesLength = countriesSmallerThanAreaOfLithuania.length
-        props.setFilteredCountries(countriesSmallerThanAreaOfLithuania, filteredCountriesLength)
+    const handleButton = (flag) => {
 
 
     }
-    const sortByOceaniaRegion = () => {
-        const oceaniaRegionCountries = props.countriesList.filter(country => country.region === 'Oceania')
-        props.setFilteredCountries(oceaniaRegionCountries,oceaniaRegionCountries.length)
+    const handleSmallCountriesClick = () => {
+        const filteredCountries = (countries.filter(country => country.area !== null && country.area < 65300));
+        props.setFilteredCountries(filteredCountries, filteredCountries.length)
+        props.setFilterBySize(!props.isFilteredBySize)
+    };
+    const handleOceaniaCountriesClick = () => {
+        const filteredCountries = (countries.filter(country => country.region !== null && country.region === 'Oceania'));
+        props.setFilteredCountries(filteredCountries, filteredCountries.length)
+        props.setFilterByLocation(!props.isFilteredByLocation)
 
-    }
+    };
     return (
-        // <div className={c.header}>
         <div>
-            <p>Hello world from navbar</p>
-            <div>
-                <NameFilterSelectDropdown countriesList={props.countriesList}
-                                          setFilteredCountries={props.setFilteredCountries}
-                />
+            <div className={style.title}>REIZ Tech Hometask</div>
+            <div className={style.filters}>
+                <div className={style.left}>
+                    <button
+                        onClick={handleSmallCountriesClick}
+                    >Smaller than Lithuania
+                    </button>
 
-                <button onClick={sortByAreaSize}>Smaller than Lithuania</button>
-                <button onClick={sortByOceaniaRegion}>Sort By Oceania region</button>
+                    <button
+                        onClick={handleOceaniaCountriesClick}
+                    >Sort By Oceania region
+                    </button>
+                </div>
+                <div className={style.right}>
+                    <NameFilterSelectDropdown {...props}
+                    />
+                </div>
             </div>
         </div>
     );
@@ -50,11 +53,16 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
     return {
         countriesList: getCountriesList(state),
+        isFilteredBySize: state.filteredCountries.isFilteredBySize,
+        isFilteredByLocation: state.filteredCountries.isFilteredByLocation,
+        filteredCountries: getFilteredCountriesList(state),
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        setFilteredCountries: (filteredCountriesList, countriesFilteredCount) => dispatch(setFilteredCountries(filteredCountriesList, countriesFilteredCount))
+        setFilterBySize: (flag) => dispatch(setFilterBySize(flag)),
+        setFilterByLocation: (flag) => dispatch(setFilterByLocation(flag)),
+        setFilteredCountries: (filteredCountriesList, countriesFilteredCount) => dispatch(setFilteredCountries(filteredCountriesList, countriesFilteredCount)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

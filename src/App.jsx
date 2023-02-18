@@ -17,15 +17,12 @@ class App extends React.Component {
     render() {
         if (this.props.dataIsFetched) {
             return (
-                <div className="App">\
-                    <Navbar>
-                        <Header/>
-                    </Navbar>
+                <div className="App">
+                    <Header/>
                     <Body/>
                 </div>
             );
-        }
-        else return <></>
+        } else return <></>
     }
 }
 
