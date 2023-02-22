@@ -7,18 +7,50 @@ import {NameFilterSelectDropdown} from "./Filtering/NameFilterSelectDropdown";
 import {setFilterByLocation, setFilterBySize} from "../../redux/filterReducer";
 
 const Header = (props) => {
-    const countries = props.countriesList
-    const handleSmallCountriesClick = () => {
-        const filteredCountries = (countries.filter(country => country.area !== null && country.area < 65300));
-        props.setFilteredCountries(filteredCountries, filteredCountries.length)
-        props.setFilterBySize(!props.isFilteredBySize)
-    };
-    const handleOceaniaCountriesClick = () => {
-        const filteredCountries = (countries.filter(country => country.region !== null && country.region === 'Oceania'));
-        props.setFilteredCountries(filteredCountries, filteredCountries.length)
-        props.setFilterByLocation(!props.isFilteredByLocation)
+    const countries = props.countriesList;
+    const [oneFlag, setOneFlag] = useState(false);
+    const [twoFlag, setTwoFlag] = useState(false);
+    const [oneFlagDisabled, setOneFlagDisabled] = useState(false);
+    const [twoFlagDisabled, setTwoFlagDisabled] = useState(false);
 
+    const handleSmallCountriesClick = () => {
+        if (oneFlag && !twoFlag) {
+            // If the filter is already active, disable it
+            props.setFilteredCountries(countries, countries.length);
+            setOneFlag(false);
+            props.setFilterBySize(false);
+            setOneFlagDisabled(false);
+        } else {
+            // If the filter is not active, enable it
+            const filteredCountries = countries.filter(
+                (country) => country.area !== null && country.area < 65300
+            );
+            props.setFilteredCountries(filteredCountries, filteredCountries.length);
+            setOneFlag(true);
+            props.setFilterBySize(true);
+            setOneFlagDisabled(true);
+        }
     };
+
+    const handleOceaniaCountriesClick = () => {
+        if (!oneFlag && twoFlag) {
+            // If the filter is already active, disable it
+            props.setFilteredCountries(countries, countries.length);
+            setTwoFlag(false);
+            props.setFilterByLocation(false);
+            setTwoFlagDisabled(false);
+        } else {
+            // If the filter is not active, enable it
+            const filteredCountries = countries.filter(
+                (country) => country.region !== null && country.region === "Oceania"
+            );
+            props.setFilteredCountries(filteredCountries, filteredCountries.length);
+            setTwoFlag(true);
+            props.setFilterByLocation(true);
+            setTwoFlagDisabled(true);
+        }
+    };
+
     return (
         <div>
             <div className={style.title}>REIZ Tech Hometask</div>
@@ -26,22 +58,28 @@ const Header = (props) => {
                 <div className={style.left}>
                     <button
                         onClick={handleSmallCountriesClick}
-                    >Smaller than Lithuania
+                        style={{border: oneFlagDisabled ? "solid" : "none"}}
+                        disabled={twoFlag}
+                    >
+                        Smaller than Lithuania
                     </button>
 
                     <button
                         onClick={handleOceaniaCountriesClick}
-                    >Sort By Oceania region
+                        style={{border: twoFlagDisabled ? "solid" : "none"}}
+                        disabled={oneFlag}
+                    >
+                        Sort By Oceania region
                     </button>
                 </div>
                 <div className={style.right}>
-                    <NameFilterSelectDropdown {...props}
-                    />
+                    <NameFilterSelectDropdown {...props} />
                 </div>
             </div>
         </div>
     );
 };
+
 const mapStateToProps = (state) => {
     return {
         countriesList: getCountriesList(state),

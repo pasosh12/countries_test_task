@@ -6,9 +6,10 @@ import style from './CountryList.module.css'
 let CountriesList = (props) => {
     const leftPortionLimitCountries = (props.currentPage - 1) * props.countriesOnPage;
     const rightPortionLimitCountries = (props.currentPage * props.countriesOnPage - 1)
+
     const countries =
         props.filteredCountries.length !== 0 ?
-        props.filteredCountries
+            props.filteredCountries
             : props.countriesList
 
     const slicedCountries = countries.slice(leftPortionLimitCountries, rightPortionLimitCountries)

@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
-import { getNecessaryCountriesThunk, setCurrentPage} from "../../redux/countriesReducer"
+import {getNecessaryCountriesThunk, setCurrentPage} from "../../redux/countriesReducer"
 import {
     getCountriesList,
     getCountriesOnPage,
@@ -44,8 +44,9 @@ const mapStateToProps = (state) => {
         countriesOnPage: getCountriesOnPage(state),
         countriesTotalCount: getCountriesTotalCount(state),
         currentPage: getCurrentPage(state),
-        isFetched: state.app.dataIsFetched,
         filteredCountries: getFilteredCountriesList(state),
+        isFilteredBySize: state.filteredCountries.isFilteredBySize,
+        isFilteredByLocation: state.filteredCountries.isFilteredByLocation
     }
 }
 const mapDispatchToProps = (dispatch) => {
