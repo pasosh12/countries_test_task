@@ -23,12 +23,12 @@ class Body extends React.Component {
         return (
             <>
                 <CountriesList
-                    countriesList={this.props.countriesList}
-                    countriesOnPage={this.props.countriesOnPage}
-                    countriesTotalCount={this.props.countriesTotalCount}
-                    currentPage={this.props.currentPage}
-                    pageChanged={this.pageChanged}
-                    filteredCountries={this.props.filteredCountries}
+                    // countriesList={this.props.countriesList}
+                    // countriesOnPage={this.props.countriesOnPage}
+                    // countriesTotalCount={this.props.countriesTotalCount}
+                    // currentPage={this.props.currentPage}
+                    // pageChanged={this.pageChanged}
+                    // filteredCountries={this.props.filteredCountries}
                     {...this.props}
                 />
 

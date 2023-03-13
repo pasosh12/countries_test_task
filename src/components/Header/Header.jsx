@@ -10,8 +10,6 @@ const Header = (props) => {
     const countries = props.countriesList;
     const [oneFlag, setOneFlag] = useState(false);
     const [twoFlag, setTwoFlag] = useState(false);
-    const [oneFlagDisabled, setOneFlagDisabled] = useState(false);
-    const [twoFlagDisabled, setTwoFlagDisabled] = useState(false);
 
     const handleSmallCountriesClick = () => {
         if (oneFlag && !twoFlag) {
@@ -19,7 +17,6 @@ const Header = (props) => {
             props.setFilteredCountries(countries, countries.length);
             setOneFlag(false);
             props.setFilterBySize(false);
-            setOneFlagDisabled(false);
         } else {
             // If the filter is not active, enable it
             const filteredCountries = countries.filter(
@@ -28,7 +25,6 @@ const Header = (props) => {
             props.setFilteredCountries(filteredCountries, filteredCountries.length);
             setOneFlag(true);
             props.setFilterBySize(true);
-            setOneFlagDisabled(true);
         }
     };
 
@@ -38,7 +34,6 @@ const Header = (props) => {
             props.setFilteredCountries(countries, countries.length);
             setTwoFlag(false);
             props.setFilterByLocation(false);
-            setTwoFlagDisabled(false);
         } else {
             // If the filter is not active, enable it
             const filteredCountries = countries.filter(
@@ -47,7 +42,6 @@ const Header = (props) => {
             props.setFilteredCountries(filteredCountries, filteredCountries.length);
             setTwoFlag(true);
             props.setFilterByLocation(true);
-            setTwoFlagDisabled(true);
         }
     };
 
@@ -58,7 +52,7 @@ const Header = (props) => {
                 <div className={style.left}>
                     <button
                         onClick={handleSmallCountriesClick}
-                        style={{border: oneFlagDisabled ? "solid" : "none"}}
+                        style={{border: oneFlag ? "solid" : "none"}}
                         disabled={twoFlag}
                     >
                         Smaller than Lithuania
@@ -66,7 +60,7 @@ const Header = (props) => {
 
                     <button
                         onClick={handleOceaniaCountriesClick}
-                        style={{border: twoFlagDisabled ? "solid" : "none"}}
+                        style={{border: twoFlag ? "solid" : "none"}}
                         disabled={oneFlag}
                     >
                         Sort By Oceania region

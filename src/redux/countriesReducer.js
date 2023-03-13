@@ -14,8 +14,6 @@ let initialState = {
     pagesCount: 1,
     isFetching: false,
     filteredCountries: [],
-    countriesLessThanLithuania:[],
-    countriesInOceania:[]
 
 }
 const countriesReducer = (state = initialState, action) => {
